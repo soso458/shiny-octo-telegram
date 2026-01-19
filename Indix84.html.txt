@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <!-- iOS Optimization -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="بوابة البتراء">
+
+    <title>بوابة الخدمات الإلكترونية | مدرسة البتراء</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/dist/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans Arabic', sans-serif;
+            background-color: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.25rem;
+            transition: all 0.2s ease;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .service-card:active {
+            transform: scale(0.95);
+            background-color: #f8fafc;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .input-field {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .primary-btn {
+            background: #1e293b;
+            color: white;
+            width: 100%;
+            padding: 1rem;
+            border-radius: 1rem;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body class="pb-10">
+
+    <!-- Header Section -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="px-6 py-4 flex justify-between items-center max-w-2xl mx-auto">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-white">
+                    <i class="fas fa-school-flag"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-slate-800">مدرسة البتراء</h1>
+                    <p class="text-[10px] text-slate-500 font-medium">بوابة التواصل والخدمات الذكية</p>
+                </div>
+            </div>
+            <button onclick="openModal('notification')" class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-600 relative">
+                <i class="fas fa-bell"></i>
+                <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-2xl mx-auto p-6 space-y-6">
+        
+        <!-- Welcome Card -->
+        <div class="bg-slate-800 rounded-3xl p-6 text-white shadow-lg relative overflow-hidden">
+            <div class="relative z-10">
+                <h2 class="text-lg font-bold">أهلاً بكم في بوابتكم</h2>
+                <p class="text-xs text-slate-300 mt-1">نسعى دائماً لتطوير الشراكة بين المدرسة والبيت.</p>
+            </div>
+            <i class="fas fa-shapes absolute -bottom-4 -left-4 text-8xl opacity-10"></i>
+        </div>
+
+        <!-- News Bar -->
+        <div class="bg-amber-50 border border-amber-100 rounded-2xl p-4 flex items-center gap-3">
+            <span class="bg-amber-500 text-white text-[10px] px-2 py-1 rounded-md font-bold uppercase">جديد</span>
+            <marquee class="text-xs text-amber-800 font-bold">بدء التسجيل للمخيم الصيفي والأنشطة اللامنهجية.. يرجى مراجعة الإدارة.</marquee>
+        </div>
+
+        <!-- Services Grid -->
+        <div class="grid grid-cols-2 gap-4">
+            <!-- Box: Complaints & Feedback -->
+            <button onclick="openModal('complaint')" class="service-card shadow-sm hover:shadow-md">
+                <div class="w-12 h-12 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center mb-3 text-xl">
+                    <i class="fas fa-envelope-open-text"></i>
+                </div>
+                <span class="text-sm font-bold text-slate-700">صندوق الشكاوى</span>
+                <p class="text-[10px] text-slate-400 mt-1">تواصل مباشر مع الإدارة</p>
+            </button>
+
+            <!-- Box: Student Progress -->
+            <button onclick="openModal('academic')" class="service-card shadow-sm hover:shadow-md">
+                <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mb-3 text-xl">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <span class="text-sm font-bold text-slate-700">متابعة الطالب</span>
+                <p class="text-[10px] text-slate-400 mt-1">الغياب والتحصيل</p>
+            </button>
+
+            <!-- Box: Schedule -->
+            <button onclick="openModal('schedule')" class="service-card shadow-sm hover:shadow-md">
+                <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-3 text-xl">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <span class="text-sm font-bold text-slate-700">الجدول الأسبوعي</span>
+                <p class="text-[10px] text-slate-400 mt-1">الحصص والأنشطة</p>
+            </button>
+
+            <!-- Box: Support -->
+            <button onclick="window.location.href='https://wa.me/96200000000'" class="service-card shadow-sm hover:shadow-md">
+                <div class="w-12 h-12 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-3 text-xl">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <span class="text-sm font-bold text-slate-700">دعم أولياء الأمور</span>
+                <p class="text-[10px] text-slate-400 mt-1">رد سريع عبر الواتساب</p>
+            </button>
+        </div>
+
+        <!-- Practical Guide Link -->
+        <div class="bg-white rounded-3xl p-5 border border-slate-200 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-slate-500">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold">دليل الأنظمة والتعليمات</h4>
+                    <p class="text-[10px] text-slate-400">حقوق وواجبات الطالب</p>
+                </div>
+            </div>
+            <i class="fas fa-chevron-left text-slate-300"></i>
+        </div>
+
+    </main>
+
+    <!-- Modal: Complaints Box -->
+    <div id="modal-complaint" class="modal-overlay" onclick="closeModals()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h3 class="font-bold text-lg mb-2">تقديم شكوى أو مقترح</h3>
+            <p class="text-xs text-slate-500 mb-4">نحن نهتم برأيك لتطوير بيئتنا التعليمية.</p>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="text-xs font-bold mr-1">الاسم الكامل (اختياري)</label>
+                    <input type="text" class="input-field" placeholder="أدخل اسمك">
+                </div>
+                <div>
+                    <label class="text-xs font-bold mr-1">نوع الرسالة</label>
+                    <select class="input-field">
+                        <option>شكوى إدارية</option>
+                        <option>ملاحظة سلوكية</option>
+                        <option>مقترح تطويري</option>
+                        <option>أخرى</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-xs font-bold mr-1">الملاحظة</label>
+                    <textarea class="input-field h-24" placeholder="اكتب تفاصيل ملاحظتك هنا..."></textarea>
+                </div>
+                <button onclick="handleSubmit()" class="primary-btn">إرسال الملاحظة</button>
+                <button onclick="closeModals()" class="w-full text-slate-400 text-xs py-2">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Academic Progress -->
+    <div id="modal-academic" class="modal-overlay" onclick="closeModals()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h3 class="font-bold text-lg mb-4 text-center">بوابة متابعة الطالب</h3>
+            <div class="space-y-4">
+                <div class="bg-slate-50 p-4 rounded-2xl">
+                    <p class="text-xs font-bold text-slate-500 mb-2">أدخل الرقم الوطني للطالب</p>
+                    <input type="number" class="input-field text-center font-bold text-lg" placeholder="0000000000">
+                    <button class="primary-btn mt-4">استعلام</button>
+                </div>
+                <div class="p-2">
+                    <p class="text-[10px] text-slate-400 text-center leading-relaxed">
+                        ملاحظة: البيانات المتاحة هي للغياب، التأخير، والنتائج الشهرية فقط.
+                    </p>
+                </div>
+            </div>
+            <button onclick="closeModals()" class="w-full mt-4 text-slate-400 text-sm">إغلاق</button>
+        </div>
+    </div>
+
+    <footer class="text-center mt-6">
+        <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">بوابة مدرسة البتراء الرسمية - 2026</p>
+    </footer>
+
+    <script>
+        function openModal(id) {
+            document.getElementById('modal-' + id).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModals() {
+            document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleSubmit() {
+            alert("تم استلام ملاحظتكم بنجاح. سيقوم القسم المعني بمراجعتها في أقرب وقت.");
+            closeModals();
+        }
+
+        // Handle Escape and Back button
+        window.onpopstate = closeModals;
+    </script>
+</body>
+</html>
+
